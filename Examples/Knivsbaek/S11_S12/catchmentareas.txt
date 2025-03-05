@@ -1,0 +1,5 @@
+catchment; size
+S12_gw; 10.23
+S12_topo; 12.32
+S11_gw; 3.13
+S11_topo; 5.31

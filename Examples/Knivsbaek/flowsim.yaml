@@ -1,0 +1,71 @@
+## Simulation setup
+#   Mandatory
+simulation_periods: [{begin: "2014-11-01", end: "2015-10-31", early_begin: "2004-11-01"}, {begin: "2015-11-02", end: "2016-10-31", early_begin: "2005-11-02"}]
+
+#   Optional
+dtformat: "%Y-%m-%d"
+x: [0.0]
+
+## Aquifer information
+# Mandatory
+aquifers:
+    Upp:
+        func:
+            fin_rech_leak: 'recharge'
+        T: 4.3200000E+01
+        S: 1.0740001E-01
+        C: 4.1470000E-01
+        L: 1.0000000E+01
+        # The following is optional:
+        bcfac: {'recharge': 2.8160000E-01}
+    Low:
+        func:
+            fin_rech_leak: 'recharge'
+        T: 4.3200000E+02
+        S: 9.9000018E-03
+        C: 2.2100002E-01
+        L: 2.5000000E+03
+        # The following is optional:
+        bcfac: {'recharge': 4.6730000E-01}
+
+## Boundary condition information
+# Mandatory
+boundaryconditions:
+    recharge:
+        file: ".\\edcrop\\DMI-10065_JB1_avgcrop_Evacrop_mp_wb.out"
+        header: 0
+        date:  date
+        val:   Dsum
+        dtformat: "%Y-%m-%d"
+        type: flux
+        convfact: .001
+        # The following are optional
+#        sep:
+#        decimal:
+#        skiprows:
+
+## Output information
+# Optional
+plot:
+    S12:
+        plotseries: ["q_tot_x=0.0", "q_Low_x=0.0"]
+#        yaxis: log
+        ylim: [.00, .01]
+        ytitle: "Flux (m/d)"
+        # Optional. Required to plot an observed series:
+        obs:
+            file: '.\\S11_S12\\streamflow_S11_S12.csv'
+            header: 0
+            date: date
+            dtformat: "%d-%m-%Y"
+            val: ['S12']
+            convfact: 86.4
+            dividewith:
+               'S11':  5310000.
+               'S12': 12320000.
+#               'S11':  3130000.
+#               'S12': 10230000.
+#           Optional
+            sep: ";"
+            decimal: ","
+#            skiprows: 7
