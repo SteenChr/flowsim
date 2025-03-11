@@ -197,11 +197,11 @@ def read_obs(fo, plotname, obs, **kwargs):
     except:
         skiprows = 0
 
-    resample = False
-    for key in kwargs:
-        if key == 'resamp_rule':
-            resample = True
-
+#    resample = False
+#    for key in kwargs:
+#        if key == 'resamp_rule':
+#            resample = True
+#
     if plotobs:
         try:
 #       Read observations (in l/s), resample to daily values
@@ -218,18 +218,18 @@ def read_obs(fo, plotname, obs, **kwargs):
             Q.date = pd.to_datetime(Q.date, format=dtformat)
             for nam in qnam:
                 Q[nam] = Q[nam]*convfact/dividewith[nam]
-            # Resample to daily values
-            if resample:
-                difdays = Q["date"].iloc[1] - Q["date"].iloc[0]
-                rule = timedelta(days=1)
-                if difdays < rule:  # downsample
-                    Q.set_index('date', inplace=True)
-                    Q = Q.resample(rule).mean()
-                    Q.reset_index(inplace=True)
-                elif difdays > rule:  # upsample
-                    Q.set_index('date', inplace=True)
-                    Q = Q.resample(rule).interpolate(method='linear')
-                    Q.reset_index(inplace=True)
+#            # Resample to daily values
+#            if resample:
+#                difdays = Q["date"].iloc[1] - Q["date"].iloc[0]
+#                rule = timedelta(days=1)
+#                if difdays < rule:  # downsample
+#                    Q.set_index('date', inplace=True)
+#                    Q = Q.resample(rule).mean()
+#                    Q.reset_index(inplace=True)
+#                elif difdays > rule:  # upsample
+#                    Q.set_index('date', inplace=True)
+#                    Q = Q.resample(rule).interpolate(method='linear')
+#                    Q.reset_index(inplace=True)
         except:
             print_msg("\nCould not open or read input file (%s) for obs in plot = %s correctly."
                       % (file, plotname), fo)
@@ -245,11 +245,19 @@ def plot_response(self, plotname, Sim, yax='lin', **kwargs):
 
     plot = self.plot[plotname]
 
-    # Settings for plot of series
+#   Settings for plot of series
     try:
         plotseries = plot["plotseries"]
+        if not isinstance(plotseries, list):
+            plotseries = list()
+            msg = "\nFor %s in \'plot\', the value of \'plotseries\' is not a list of strings."%(plotname)
+            print_msg(msg, self.fo)
+            print_msg("No simulated series is therefore plotted.", self.fo)
     except:
         plotseries = list()
+        msg = "\nFor %s in \'plot\', \'plotseries\' is not specified."%(plotname)
+        print_msg(msg, self.fo)
+        print_msg("\nNo simulated series is therefore plotted", self.fo)
     try:
         yax = plot["yaxis"]
         if yax != "log":
@@ -270,7 +278,8 @@ def plot_response(self, plotname, Sim, yax='lin', **kwargs):
         ytitle = plot["ytitle"]
     except:
         ytitle = ""
-    # Settings for observation to be read and plotted
+
+#   Settings for observation to be read and plotted
     try:
         obs = plot["obs"]
         plotobs, qnam, Q = read_obs(self.fo, plotname, obs, **kwargs)
@@ -303,15 +312,15 @@ def plot_response(self, plotname, Sim, yax='lin', **kwargs):
             indx2 = Q.index.get_loc(period[1])
             Q.reset_index(inplace=True)
             df = Q.iloc[indx1:indx2+1]
-            resample = False
-            for key in kwargs:
-                if key == 'resamp_rule':
-                    rule = kwargs[key]
-                    resample = True
-            if resample:
-                df.set_index("date", inplace=True)
-                df = df.resample(rule).mean()
-                df.reset_index(inplace=True)
+#            resample = False
+#            for key in kwargs:
+#                if key == 'resamp_rule':
+#                    rule = kwargs[key]
+#                    resample = True
+#            if resample:
+#                df.set_index("date", inplace=True)
+#                df = df.resample(rule).mean()
+#                df.reset_index(inplace=True)
             for nam in qnam:
                 ax.plot(df.date, df[nam], label=nam+"-obs.")
 
@@ -367,7 +376,7 @@ def plot_response(self, plotname, Sim, yax='lin', **kwargs):
 
     plt.show()
 
-    return()
+    return
 
 
 # ###############################################################################
@@ -499,33 +508,39 @@ class model:
         no_error = True
         for aqf in self.aquifers:
             aq = self.aquifers[aqf]
-            func = aq["func"]
-            for f in func:
-                try:
-                    par = self.response_function_parameters(self.cj_func(f))
-                    if not isinstance(par, tuple):
-                        par = tuple(par)
-                    for p in par:
-                        try:
-                            aq[p]
-                        except:
-                            print_msg("\nAquifer %s misses formation about %s" % (aqf, p),
-                                      self.fo)
-                            no_error = False
-                    bcname = func[f]
+            try:
+                func = aq["func"]
+                for f in func:
                     try:
-                        self.bcfiles[bcname]  # bc[ibc]]
+                        par = self.response_function_parameters(self.cj_func(f))
+                        if not isinstance(par, tuple):
+                            par = tuple(par)
+                        for p in par:
+                            try:
+                                aq[p]
+                            except:
+                                print_msg("\nAquifer \"%s\" misses formation about %s"
+                                          %(aqf, p), self.fo)
+                                no_error = False
+                        bcname = func[f]
+                        try:
+                            self.bcfiles[bcname]  # bc[ibc]]
+                        except:
+                            msg = "\nFor aquifer \"%s\", the bc \"%s\" is not specified " +\
+                                  "under \"boundaryconditions\" in %s!"
+                            # bc[ibc]))
+                            print_msg(msg % (aqf, bcname, self.yamlfile), self.fo)
+                            no_error = False
                     except:
-                        msg = "\nFor aquifer \"%s\", the bc \"%s\" is not specified " +\
-                              "under \"boundaryconditions\" in %s!"
-                        # bc[ibc]))
-                        print_msg(msg % (aqf, bcname, self.yamlfile), self.fo)
+                        print_msg(
+                            "\nUnknown function \"%s\" specified for aquifer \"%s\""
+                            % (f, aqf), self.fo)
                         no_error = False
-                except:
-                    print_msg(
-                        "\nUnknown function \"%s\" specified for aquifer \"%s\""
-                        % (f, aqf), self.fo)
-                    no_error = False
+            except:
+                print_msg("\nAquifer \"%s\" misses information about \"func\""
+                          %aqf, self.fo)
+                no_error = False
+                
         return(no_error)
 
     def bc_read(self):
@@ -553,7 +568,7 @@ class model:
                         print_msg(msg % key, self.fo)
                         no_error = False
                 else:
-                    msg = "\n\"header\" can only be intt>=0, list of intt>=0, or 'None'"\
+                    msg = "\n\"header\" can only be int>=0, list of int>=0, or 'None'"\
                     + "for bc = %s"
                     print_msg(msg % key, self.fo)
                     no_error = False
@@ -598,16 +613,16 @@ class model:
                 print_msg("\n\"dtformat\" not defined for bc = %s" %
                           key, self.fo)
                 no_error = False
-            try:
-                bctype = bc["type"]
-                if not bctype in ('head', 'flux'):
-                    print_msg("\n%s not valid as \"type\" bc = %s"
-                              % (bctype, key), self.fo)
-                    no_error = False
-            except:
-                print_msg("\n\"type\" not specified for bc = %s" %
-                          key, self.fo)
-                no_error = False
+#            try:
+#                bctype = bc["type"]
+#                if not bctype in ('head', 'flux'):
+#                    print_msg("\n%s not valid as \"type\" bc = %s"
+#                              % (bctype, key), self.fo)
+#                    no_error = False
+#            except:
+#                print_msg("\n\"type\" not specified for bc = %s" %
+#                          key, self.fo)
+#                no_error = False
             try:
                 convfact = bc["convfact"]
                 try:
@@ -653,8 +668,9 @@ class model:
                                           sep=sep, decimal=decimal,
                                           skiprows=skiprows, engine='python')
                     else:
-                        bcd = pd.read_csv(file, header=header, usecols=col, sep=sep,
-                                          decimal=decimal, names=colnames,
+                        bcd = pd.read_csv(file, header=header, usecols=col, 
+                                          sep=sep, decimal=decimal, 
+                                          names=colnames,
                                           skiprows=skiprows, engine='python')
                     bcd.rename(columns={col[0]: 'date',
                                col[1]: 'val'}, inplace=True)
@@ -874,8 +890,12 @@ class model:
         return(True)
 
     def x_all_right(self):
+        if isinstance(self.x, int):
+            self.x = float(self.x)
+        if isinstance(self.x, float):
+            self.x = [self.x]
         if not isinstance(self.x, list):
-            print_msg("\n\"In %s, x must be a list of positive floats!"
+            print_msg("\n\"In %s, x must be a float or a list of floats!"
                       % self.yamlfile, self.fo)
             return(False)
         for x in self.x:
@@ -892,7 +912,8 @@ class model:
 
     def initialize_read(self):
         self.responsetype="hydro"  # alternative is "heat"
-        # alternative is "head" (for "head") or "temp" (for "heat")
+        # For self.reponse, the alternative to "flux" is "head" (for "hydro") 
+        # or "temp" (for "heat")
         self.response="flux"
         self.x=[0.0]
 #        self.steplength = timedelta(1)
@@ -918,6 +939,8 @@ class model:
 #                    steplength = parse_time(value)
 #                    if steplength > timedelta(0):
 #                        self.steplength = steplength
+##                elif key == "responsetype":
+##                    self.responsetype=value.lower()
                 elif key == "response":
                     self.response=value.lower()
                 elif key == 'x':
@@ -1185,4 +1208,4 @@ def run_model(yaml='flowsim.yaml', log='flowsim.log'):
     m.fo.close()
 
 
-###run_model()
+### run_model()
