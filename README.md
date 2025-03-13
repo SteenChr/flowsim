@@ -7,7 +7,7 @@ All the solutions in Flowsim were derived for linear flow problems, which means 
 they can be superimposed (aggregated). The aggregation of solutions can for example 
 make a model where flow is driven through a layered system by a mixture of time-dependent
 boundary conditions. Thus it is possible to use these simple solutions to design
-conceptual, physical meaningful models, which simulate time series of hydraulic 
+conceptual, physically meaningful models, which simulate time series of hydraulic 
 head or groundwater flux comparable to what can be observed in the field. Compared to 
 conducting numerical modeling, Flowsim has the advantage that it takes no time to design, 
 set up a model, and run a simulation. It is therefore beneficial to use Flowsim at an 
