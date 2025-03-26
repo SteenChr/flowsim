@@ -511,6 +511,8 @@ class model:
             try:
                 func = aq["func"]
                 for f in func:
+                    if not f[0:3]=='fin':
+                        self.flux_divide_by_L = False
                     try:
                         par = self.response_function_parameters(self.cj_func(f))
                         if not isinstance(par, tuple):
@@ -920,6 +922,7 @@ class model:
         self.dtformat="%Y-%m-%d"
 #        self.warmup_days = 0. # 3652.5
         self.makeplot=False
+        self.flux_divide_by_L = True
         self.plot=dict()
 
         no_error=True
@@ -1160,7 +1163,7 @@ def print_msg(msg, fl):
 
 def run_model(yaml='flowsim.yaml', log='flowsim.log'):
 
-    from flowsim import version
+from flowsim import version
 ###    import version
     __version__=version.__version__
 
@@ -1182,6 +1185,13 @@ def run_model(yaml='flowsim.yaml', log='flowsim.log'):
 # end of line characters (https://github.com/pandas-dev/pandas/issues/38551
 # or https://github.com/pandas-dev/pandas/issues/20353).
             f_res=open("flowsim-res.csv", mode="w", newline='')
+            if m.response == "flux":
+                if m.flux_divide_by_L:
+                    f_res.write("Flux unit: [L/T]\n")
+                else:
+                    f_res.write("Flux unit: [LxL/T]\n")
+            else:
+                f_res.write("Head unit: [L]\n")
             isim = 0
             for sim in Sim:
                 period = m.simulation_periods[isim]
