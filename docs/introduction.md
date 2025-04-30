@@ -1,0 +1,11 @@
+# Introduction
+
+This report documents Flowsim, a Python package that uses simple Carslaw and Jaeger (1959) solutions to simulate one-dimensional (1D-) transient groundwater flow driven by common types of boundary conditions. It simulates variation of either hydraulic head or groundwater flux at specified locations in the aquifer. 
+
+All the solutions of Flowsim were derived for linear flow problems, which means that they can be superimposed (aggregated). 
+
+The aggregation of solutions can make a model where flow is driven through a layered system (e.g. as shallow lateral flow to drains in combination with groundwater flow through deeper aquifers) by a mixture of time dependent boundary conditions (e.g. recharge and stream stage variation). The report demonstrates that this makes it possible to use these simple solutions to design conceptual, physically meaningful models, which simulate time series of hydraulic head or groundwater flux that are comparable to what can be observed in the field.
+
+Compared to conducting numerical modeling, Flowsim has the advantage that it takes no time to design, set up a model, and run a simulation. It is therefore beneficial to use Flowsim at an early stage of a hydrological modeling project, before developing and using a more complex, numerical model that may eventually be needed to finalize the study and make the decisions. The report exemplifies that Flowsim can for example be used to support early decisions about numerical model design, parameter estimation strategy, and how to model generation of groundwater recharge from climatic data.
+
+The [installation](installation.md) page instructs how to install and run Flowsim. The [methodology](methodology.md) page documents the implement superposition of solutions in Flowsim and the Carslaw and Jaeger 1D-solutions that it implements. The [case studies](cases.md) presents three field examples that illustrate how Flowsim can be used for many purposes in a hydrogeological investigation. The [inputs] (inputs.md) and [outputs](outputs.md) document the inputs and outputs of Flowsim.
