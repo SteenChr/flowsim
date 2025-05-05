@@ -1,4 +1,6 @@
-## Welcome to Flowim
+# Home
+
+Welcome to Flowim
 
 This is a test!
 
