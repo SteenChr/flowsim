@@ -1,6 +1,8 @@
 # Flowsim
 
-https://steenchr.github.io/flowsim/home.html
+
+
+[Flowsim Online Documentation](https://steenchr.github.io/flowsim/home.html)
 
 Flowsim is a Python package, which uses simple Carslaw and Jaeger (1959) solutions for 
 one-dimensional (1D-) transient groundwater flow to simulate time-dependent variation 
