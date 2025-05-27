@@ -8,7 +8,3 @@ chapters:
 - file: installation
 - file: methodology
 - file: inputs
-- file: notebooks-collection
-- file: citations
-- file: utilities
-- file: changelog
