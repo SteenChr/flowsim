@@ -30,7 +30,9 @@ Flowsim and example releases can also be found on https://github.com/SteenChr/fl
 
 ## Quickstart
 
-Running Flowsim can be run from the user’s own script by including in the script both the statement:
+There are two ways to run Flowsim.
+
+**The first way** is to run Flowsim from the user’s own script by including in the script both the statement:
 
 &ensp;&ensp;&ensp;&ensp; `from flowsim import flowsim`
 
@@ -48,3 +50,13 @@ with the defaults:
 &ensp;&ensp;&ensp;&ensp; `yaml='flowsim.yaml'`
 
 &ensp;&ensp;&ensp;&ensp; `log='flowsim.log'`
+
+**The second way** is to run Flowsim as a script by executing from the command line
+
+&ensp;&ensp;&ensp;&ensp; `python –m flowsim`
+
+with the optional arguments
+
+&ensp;&ensp;&ensp;&ensp; `--yaml <name of yaml input file>`
+
+&ensp;&ensp;&ensp;&ensp; `--log <name of log output file>`
