@@ -13,8 +13,8 @@ from math import ceil
 from datetime import timedelta, datetime
 # import re
 import copy
-# import flowsim.cj_response_funcs.cj_response_funcs as cj
-import cj_response_funcs as cj
+import flowsim.cj_response_funcs.cj_response_funcs as cj
+# import cj_response_funcs as cj
 import matplotlib.pyplot as plt
 import matplotlib.dates as dates
 # import matplotlib.ticker as ticker
@@ -209,10 +209,11 @@ def read_obs(fo, plotname, obs, **kwargs):
             col.append(datecol)
             if colnames == None:
                 Q = pd.read_csv(file, header=header, sep=sep, decimal=decimal,
-                                skiprows=skiprows, usecols=col)
+                                skiprows=skiprows, usecols=col,engine='python')
             else:
                 Q = pd.read_csv(file, header=header, sep=sep, decimal=decimal,
-                                names=colnames, skiprows=skiprows, usecols=col)
+                                names=colnames, skiprows=skiprows, usecols=col,
+                                engine='python')
             if datecol != "date":
                 Q.rename(columns={datecol: "date"}, inplace=True)
             Q.date = pd.to_datetime(Q.date, format=dtformat)
@@ -1163,7 +1164,7 @@ def print_msg(msg, fl):
 
 def run_model(yaml='flowsim.yaml', log='flowsim.log'):
 
-from flowsim import version
+    from flowsim import version
 ###    import version
     __version__=version.__version__
 
