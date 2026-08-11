@@ -1,0 +1,146 @@
+#   Mandatory
+response: 'head'
+simulation_periods: [{begin: "2015-09-03", end: "2016-11-20", early_begin: "2005-09-01"}]
+
+#   Optional
+dtformat: "%Y-%m-%d"
+x: [0.0, 58.03, 122.89, 247.76, 375.01]
+ 
+## Aquifer information
+# Mandatory
+aquifers:
+    Upp:
+        func:
+            fin_rech_leak:  'recharge'
+            sinf_head_leak: 'stream_stage'
+        T: 305.195
+        S: 0.414028
+        C: 22.6757
+        L: 1000.00
+#        T: 6.8045528E+02
+#        S: 3.3946013E-01
+#        C: 3.1489146E+01
+#        L: 2.0000000E+03
+        # The following is optional:
+        #bcfac: {'recharge': 1.0}
+ 
+## Boundary condition information
+# Mandatory
+boundaryconditions:
+    recharge:
+        file: ".\\Data\\DMI-10065_JB1_MZ_Evacrop_mp_wb_S10.out"
+        header: 0
+        date:  date
+        val:   Dsum
+        dtformat: "%Y-%m-%d"
+##        type: flux
+        convfact: .001
+#        sep:
+#        decimal:
+#        skiprows
+    stream_stage:
+        file: ".\\Data\\DMI-10065_JB1_MZ_Evacrop_mp_wb_S10.out"
+        header: 0
+        date:  date
+        val:   S10_WatLvl
+        dtformat: "%Y-%m-%d"
+##        type: flux
+        convfact: 1.0
+#        sep:
+#        decimal:
+#        skiprows
+ 
+plot:
+    SB10:
+        plotseries: ["h_Upp_x=0.0"]
+#        yaxis: log
+        ylim: [29., 31.]
+        obs:
+            plotobs: True
+            file: ".\\Data\\SB10-s1-corrected_WatLvl.csv"
+            header: 0
+            date: Time
+            dtformat: "%Y-%m-%d"
+            val: ['WatLvl']
+            convfact: 1.
+            dividewith:
+               'WatLvl': 1.
+            # Optional
+#            sep: ";"
+#            decimal: ","
+#            skiprows: 7
+
+    N4:
+        plotseries: ["h_Upp_x=58.03"]
+#        yaxis: log
+        ylim: [30., 33.]
+        obs:
+            plotobs: True
+            file: ".\\Data\\N4-corrected_WatLvl.csv"
+            header: 0
+            date: Time
+            dtformat: "%Y-%m-%d"
+            val: ['WatLvl']
+            convfact: 1.
+            dividewith:
+               'WatLvl': 1.
+            # Optional
+#            sep: ";"
+#            decimal: ","
+#            skiprows: 7
+
+    N3:
+        plotseries: ["h_Upp_x=122.89"]
+#        yaxis: log
+        ylim: [30., 33.]
+        obs:
+            plotobs: True
+            file: ".\\Data\\N3-corrected_WatLvl.csv"
+            header: 0
+            date: Time
+            dtformat: "%Y-%m-%d"
+            val: ['WatLvl']
+            convfact: 1.
+            dividewith:
+               'WatLvl': 1.
+            # Optional
+#            sep: ";"
+#            decimal: ","
+#            skiprows: 7
+
+    N2:
+        plotseries: ["h_Upp_x=247.76"]
+#        yaxis: log
+        ylim: [30., 33.]
+        obs:
+            plotobs: True
+            file: ".\\Data\\N2-corrected_WatLvl.csv"
+            header: 0
+            date: Time
+            dtformat: "%Y-%m-%d"
+            val: ['WatLvl']
+            convfact: 1.
+            dividewith:
+               'WatLvl': 1.
+            # Optional
+#            sep: ";"
+#            decimal: ","
+#            skiprows: 7
+    N1:
+        plotseries: ["h_Upp_x=375.01"]
+#        yaxis: log
+        ylim: [31., 35.]
+        obs:
+            plotobs: True
+            file: ".\\Data\\N1-corrected_WatLvl.csv"
+            header: 0
+            date: Time
+            dtformat: "%Y-%m-%d"
+            val: ['WatLvl']
+            convfact: 1.
+            dividewith:
+               'WatLvl': 1.
+            # Optional
+#            sep: ";"
+#            decimal: ","
+#            skiprows: 7
