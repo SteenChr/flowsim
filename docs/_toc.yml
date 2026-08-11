@@ -1,7 +1,6 @@
 format: jb-book
-root: home
+root: introduction
 chapters:
-  - file: introduction
   - file: installation
   - file: methodology
   - file: examples
