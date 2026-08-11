@@ -425,29 +425,29 @@
 <h1>Notebooks<a class="headerlink" href="#notebooks" title="Link to this heading">#</a></h1>
 <p>Two runnable notebooks accompany this book, under <code class="docutils literal notranslate"><span class="pre">notebooks/</span></code>:</p>
 <ul class="simple">
-<li><p><strong><a class="reference internal" href="notebooks/quickstart.html"><span class="std std-doc">quickstart.ipynb</span></a></strong> — implements and validates a small
+<li><p><strong><a class="reference internal" href="notebooks/quickstart.html"><span class="std std-doc">quickstart.ipynb</span></a></strong>: implements and validates a small
 finite-difference solver for the governing equation in
 <a class="reference internal" href="methodology.html"><span class="std std-doc">Solution methodology</span></a>, checks it against the closed-form <code class="docutils literal notranslate"><span class="pre">sinf_head_perf</span></code> and
 <code class="docutils literal notranslate"><span class="pre">sinf_head_leak</span></code> solutions, then demonstrates a recharge-driven finite aquifer
 (<code class="docutils literal notranslate"><span class="pre">fin_rech_leak</span></code>).</p></li>
-<li><p><strong><a class="reference internal" href="notebooks/applied-examples.html"><span class="std std-doc">applied-examples.ipynb</span></a></strong> — runs three scenarios from
-<a class="reference internal" href="examples.html"><span class="std std-doc">Applied examples</span></a> end-to-end with synthetic data and plots: construction
+<li><p><strong><a class="reference internal" href="notebooks/applied-examples.html"><span class="std std-doc">applied-examples.ipynb</span></a></strong>: runs three scenarios from
+<a class="reference internal" href="examples.html"><span class="std std-doc">Applied examples</span></a> end to end with synthetic data and plots: construction
 dewatering vs. a permit limit, snowmelt timing for a trout stream’s baseflow, and a stormwater
 basin’s 72-hour drawdown requirement.</p></li>
 </ul>
 <p><strong>Why these don’t call <code class="docutils literal notranslate"><span class="pre">flowsim.run_model()</span></code> directly:</strong> the <code class="docutils literal notranslate"><span class="pre">flowsim</span></code> package currently on PyPI
-fails to import in this environment (see <a class="reference internal" href="installation.html"><span class="std std-doc">Installation</span></a>) — it installs as
+fails to import in this environment (see <a class="reference internal" href="installation.html"><span class="std std-doc">Installation</span></a>); it installs as
 version <code class="docutils literal notranslate"><span class="pre">0.0.0</span></code>, its own metadata describes an unrelated Edcrop script, and it’s missing a
 required module file. Until that’s fixed upstream, both notebooks solve the same governing
 equation and boundary conditions numerically (implicit finite differences) instead, and validate
 the result against Flowsim’s own closed-form analytical solutions before trusting it further. If
 you have a working local build of the real package, the <code class="docutils literal notranslate"><span class="pre">flowsim.yaml</span></code> snippets throughout
 <a class="reference internal" href="inputs.html"><span class="std std-doc">Inputs</span></a> and <a class="reference internal" href="examples.html"><span class="std std-doc">Applied examples</span></a> are what you’d feed to
-<code class="docutils literal notranslate"><span class="pre">flowsim.run_model()</span></code> instead — the notebooks’ <code class="docutils literal notranslate"><span class="pre">simulate_1d()</span></code> function is a drop-in stand-in for
+<code class="docutils literal notranslate"><span class="pre">flowsim.run_model()</span></code> instead; the notebooks’ <code class="docutils literal notranslate"><span class="pre">simulate_1d()</span></code> function is a drop-in stand-in for
 that call.</p>
 <p>The rest of the scenarios in <a class="reference internal" href="examples.html"><span class="std std-doc">Applied examples</span></a> (mine dewatering, levee
 underseepage, riverbank filtration, etc.) follow the same pattern used in
-<code class="docutils literal notranslate"><span class="pre">applied-examples.ipynb</span></code> — build a boundary-head or recharge time series, call <code class="docutils literal notranslate"><span class="pre">simulate_1d</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">applied-examples.ipynb</span></code>: build a boundary-head or recharge time series, call <code class="docutils literal notranslate"><span class="pre">simulate_1d</span></code>, and
 read the answer off the output. Contributions extending the notebook to more of them are welcome
 at <a class="github reference external" href="https://github.com/SteenChr/flowsim">SteenChr/flowsim</a>.</p>
 <div class="toctree-wrapper compound">
