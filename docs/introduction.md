@@ -8,4 +8,9 @@ The aggregation of solutions can make a model where flow is driven through a lay
 
 Compared to conducting numerical modeling, Flowsim has the advantage that it takes no time to design, set up a model, and run a simulation. It is therefore beneficial to use Flowsim at an early stage of a hydrological modeling project, before developing and using a more complex, numerical model that may eventually be needed to finalize the study and make the decisions. The report exemplifies that Flowsim can for example be used to support early decisions about numerical model design, parameter estimation strategy, and how to model generation of groundwater recharge from climatic data.
 
-The [installation](installation.md) page instructs how to install and run Flowsim. The [methodology](methodology.md) page documents the implement superposition of solutions in Flowsim and the Carslaw and Jaeger 1D-solutions that it implements. The case studies presents three field examples that illustrate how Flowsim can be used for many purposes in a hydrogeological investigation. The [inputs] (inputs.md) and outputs document the inputs and outputs of Flowsim.
+The [Installation](installation.md) page describes how to install and run Flowsim.
+The [Solution methodology](methodology.md) page documents the superposition
+method and the Carslaw and Jaeger 1D solutions implemented in Flowsim.
+The [Examples](examples.md) page presents the three field studies from the report.
+The [Input instructions and output](inputs.md) page documents required inputs and
+produced outputs.

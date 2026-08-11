@@ -1,50 +1,54 @@
-# Installation and Quickstart
+# Installing and running Flowsim
+
 ## Installation
 
-Flowsim (v. 1.0.0) requires Python 3.8.8 or higher. Furthermore it requires the numpy (v. 1.20.1), pandas (v. 1.2.4), matplotlib (v. 3.3.4), and yaml (pyyaml v. 5.4.1) packages.
+Flowsim (v. 1.0.0) requires Python 3.8.8 or higher. It also requires the
+packages numpy, pandas, matplotlib, and pyyaml.
 
-Flowsim is available from the Python Package Index (PyPI.org) repository. It is installed by executing from the command line:
+Flowsim is available from the Python Package Index (PyPI.org):
 
-&ensp;&ensp;&ensp;&ensp; **pip install flowsim**
+	pip install flowsim
 
-This installation uses the following dependencies of other Python packages:
+To install without dependencies:
 
-```
-dependencies = [
-		"numpy >=1.20.1",
-		"matplotlib >= 3.3.4",
-		"pandas >=1.2.4",
-		"pyyaml >=5.4.1"
-	]
-```
+	pip install --no-deps flowsim
 
-To install Edcrop without caring for dependencies, use instead:
+For more information on pip installation, see:
+https://pip.pypa.io/en/stable/cli/pip_install/
 
-&ensp;&ensp;&ensp;&ensp; **pip install --no-deps flowsim**
+Flowsim source code and example releases are available at:
+https://github.com/SteenChr/flowsim
 
-The above commands install Flowsim into the Python site-packages directory.
+A brief documentation website is available at:
+https://steenchr.github.io/flowsim
 
-For more information on pip installation, consult the pip documentation at https://pip.pypa.io/en/stable/cli/pip_install/.
+## Running Flowsim
 
-Flowsim and example releases can also be found on https://github.com/SteenChr/flowsim.
+There are two ways to run Flowsim.
 
-## Quickstart
+The first way is from your own Python script, by including:
 
-Running Flowsim can be run from the user’s own script by including in the script both the statement:
+	from flowsim import flowsim
 
-&ensp;&ensp;&ensp;&ensp; `from flowsim import flowsim`
+and calling:
 
-and the function call:
+	flowsim.run_model()
 
-&ensp;&ensp;&ensp;&ensp; `flowsim.run_model()`
+The function call supports optional arguments:
 
-The function call may include two optional arguments:
+	yaml=<name of yaml input file>
+	log=<name of log output file>
 
-&ensp;&ensp;&ensp;&ensp; `yaml=<name of yaml input file>`
+with defaults:
 
-&ensp;&ensp;&ensp;&ensp; `log=<name of log output file>`
+	yaml='flowsim.yaml'
+	log='flowsim.log'
 
-with the defaults:
-&ensp;&ensp;&ensp;&ensp; `yaml='flowsim.yaml'`
+The second way is from the command line:
 
-&ensp;&ensp;&ensp;&ensp; `log='flowsim.log'`
+	python -m flowsim
+
+with optional arguments:
+
+	--yaml <name of yaml input file>
+	--log <name of log output file>

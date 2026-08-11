@@ -1,17 +1,19 @@
-# Flowsim Input Instructions and Output
+# Input instructions and output
 
 ## Overview
 
-To use Flowsim, all input must be in consistent units. Correspondingly, all output from Flowsim will be presented in these consistent units. The simulation is carried out at discrete time steps with constant duration, defined by the time step of the boundary condition input.
+To use Flowsim, all input must be in consistent units. Correspondingly, all output from Flowsim
+is presented in these same consistent units. The simulation is
+carried out at discrete time steps of constant duration, defined by the time step of the
+boundary-condition input.
 
-All input must be provided in a required text file named `flowsim.yaml`. This file follows the [YAML](https://yaml.org/) format, a human-readable data serialization standard. It must be located in the working directory when Flowsim is executed.
-
-- Section 5.1: Describes the structure and content of `flowsim.yaml`
-- Section 5.2: Describes the output from Flowsim
+All input must be provided in a required text file named `flowsim.yaml`. This file follows the
+[YAML](https://yaml.org/) format, a human-readable data serialization standard. It must be
+located in the working directory when Flowsim is executed.
 
 ---
 
-## 5.1 Structure of Input File `flowsim.yaml`
+## Structure of `flowsim.yaml`
 
 The `flowsim.yaml` file may include:
 
@@ -20,7 +22,7 @@ The `flowsim.yaml` file may include:
 - Keys and key-value pairs
 - Value continuations across multiple lines
 
-### Value Types
+### Value types
 
 A value in the file can be:
 
@@ -32,15 +34,17 @@ A value in the file can be:
 - List (e.g., `[3.2, 7.32, 7.5e-3]`)
 - Dictionary (e.g., `{key_1: 1.3, key_2: 2.7}`)
 
-### Syntax Rules
+### Syntax rules
 
 - Lists begin with `[` and end with `]`, entries separated by commas
 - Dictionaries begin with `{` and end with `}`, key-value pairs separated by commas
-- Use **spaces** for indentation (not tabs!)
+- Use **spaces** for indentation (not tabs!) — using tabs causes an error and program failure
+- Indentation defines blocks and sub-blocks of information; use identical indentation for
+  sibling blocks (e.g. all aquifer sub-blocks), or file loading will fail
 
 ---
 
-## 5.1.1 Input to Make a Simulation
+## Input to make a simulation
 
 Only one key-value pair is mandatory:
 
@@ -50,15 +54,20 @@ simulation_periods:
   - {begin: "2015-09-03", end: "2016-11-20", early_begin: "2005-09-03"}
 ```
 
-### Optional Setup Keys
+Each simulation period requires `begin` and `end` dates. A period may optionally include
+`early_begin`, the start of a warm-up period that precedes `begin`; results are only written for
+the `begin`–`end` sub-period, but the warm-up lets the simulation "spin up" before results are
+recorded.
+
+### Optional setup keys
 
 ```yaml
-dtformat: "%Y-%m-%d"
-response: "head"  # Default is "flux"
-x: [0.0, 58.03, 122.89, 247.76, 375.01]
+dtformat: "%Y-%m-%d"   # default date format for the keys above
+response: "head"        # default is "flux"
+x: [0.0, 58.03, 122.89, 247.76, 375.01]   # locations to report head/flux at (default [0.0])
 ```
 
-### Aquifer Information (Mandatory)
+### Aquifer information (mandatory)
 
 ```yaml
 aquifers:
@@ -74,11 +83,23 @@ aquifers:
       recharge: 1.0
 ```
 
-- Key names (e.g., `Upp`) must be unique
-- Function names must match those in Table 1
-- Required parameters depend on chosen functions (e.g., `T`, `S`, `C`, `L`)
+- Key names (e.g., `Upp`) must be unique across the `aquifers` block.
+- `func` lists one or more unit response functions to superimpose for this aquifer — see Table 1
+  in [Solution methodology](methodology.md). Each function name maps to the key of a
+  `boundaryconditions` sub-block (below) that drives it.
+- Required parameters depend on the chosen function(s) (e.g., `T`, `S`, `C`, `L`).
+- `bcfac` (optional) scales a named boundary-condition time series before it drives this aquifer
+  — useful for splitting recharge between multiple conceptual sub-models (e.g. a drainage
+  component and a groundwater component), as in the [case studies](examples.md). Default is
+  `1.0`. It is generally not relevant for a head boundary condition.
 
-### Boundary Condition Information (Mandatory)
+Since Flowsim does not simulate exchange of water between aquifers, aquifers with independent
+flow can just as well be run in separate Flowsim runs. It is beneficial to include more than one
+aquifer in the same run only when they discharge to the *same* head boundary condition (e.g. a
+stream gaining flow from both a shallow and a deep aquifer) — in that case Flowsim's output also
+includes the *total* flux summed across the aquifers.
+
+### Boundary condition information (mandatory)
 
 ```yaml
 boundaryconditions:
@@ -99,7 +120,19 @@ boundaryconditions:
     convfact: 1.0
 ```
 
-#### Optional Parameters
+There must be one sub-block per boundary-condition key referenced under `func` in the `aquifers`
+block. Each sub-block is read as a CSV file (via `pandas.read_csv(..., engine='python')`) and
+requires:
+
+- `file`: path and name of the CSV file
+- `header` (row number for column names) **or** `colnames` (explicit list of column names)
+- `date`: name of the datetime column
+- `val`: name of the boundary-condition value column
+- `dtformat`: format string for parsing the date column (e.g. `"%Y-%m-%d"`)
+- `convfact`: multiplier applied to the series to convert it to the units used by the model
+  parameters
+
+#### Optional parameters
 
 - `sep`: column delimiter (default `r'\s+|,\s*|;\s*'`)
 - `decimal`: decimal character (default `"."`)
@@ -107,93 +140,50 @@ boundaryconditions:
 
 ---
 
-## 5.1.2 Boundary Condition Time Series Requirements
+## Boundary condition time series requirements
 
-Flowsim checks:
+Before simulating, Flowsim checks that:
 
-- Every simulation date exists in the time series
-- Time steps are constant across the series
-- All series have the same temporal resolution
+- every simulation date exists in each boundary-condition time series,
+- the time step is constant within each series, and
+- all boundary-condition series share the same temporal resolution.
 
-If any check fails, Flowsim aborts with an error.
+If any check fails, Flowsim aborts with an error message (also written to `flowsim.log`).
 
----
-
-## 5.2 Output
-
-### 5.2.1 Standard Output File and Log File
-
-Outputs:
-
-- `flowsim-res.csv`: Simulation results
-- `flowsim.log`: Errors and warnings
-
-#### `flowsim-res.csv` Columns
-
-- `date`: Date/time
-- Boundary conditions: Named after `boundaryconditions` keys
-- Head: `"h_" + aquifer_key + "_x=value"`
-- Flux: `"q_" + aquifer_key + "_x=value"`
-- Total flux: `"q_tot_x=value"` (sum across aquifers)
-
-#### Flux Units
-
-- Infinite aquifers: `[L²/T]`
-- Finite aquifers: `[L/T]` (per unit aquifer area)
-
-> ⚠️ Output files are **overwritten** each run.
+To coarsen or refine a Flowsim simulation temporally, coarsen or refine the boundary-condition
+input files accordingly.
 
 ---
 
-### 5.2.2 Plotting Simulation Results
+## Output
 
-Add a `plot` block to `flowsim.yaml`:
+### Standard output and log files
 
-#### Example: Plot with Observation
+By default, Flowsim writes a CSV results file and a log file:
 
-```yaml
-plot:
-  N4:
-    plotseries: ["h_Upp_x=58.03"]
-    ylim: [30.0, 33.0]
-    obs:
-      file: "./Data/N4-corrected_WatLvl.csv"
-      header: 0
-      date: Time
-      dtformat: "%Y-%m-%d"
-      val: ['WatLvl']
-      convfact: 1.0
-      dividewith:
-        WatLvl: 1.0
-```
+- flowsim-res.csv
+- flowsim.log
 
-#### Example: Plot Flux with Observation
+The results file contains date/time, used boundary condition series, and simulated
+head or flux at the requested x locations.
 
-```yaml
-plot:
-  S2:
-    plotseries: ["q_tot_x=0.0", "q_Low_x=0.0"]
-    obs:
-      file: "../../Q_lokal/HymerOut_S1-S5.txt"
-      colnames: ["date", "S1", "S2", "S3", "S4", "S5"]
-      date: date
-      dtformat: "%Y%m%d%H%M%S"
-      val: ['S2']
-      convfact: 86.4
-      dividewith:
-        S2: 6957381.0
-        S3: 4586094.0
-        S4: 2468278.0
-      sep: ","
-      decimal: "."
-      skiprows: 7
-```
+For flux simulations, the file also contains total flux across aquifers at each
+x location.
 
-To disable plotting without deleting the block, rename `plot` to e.g. `noplot`.
+### Plotting output
+
+Optional plotting instructions can be included in flowsim.yaml using a plot block.
+Each plot sub-block can define:
+
+- simulated series to draw
+- optional observed series file and formatting
+- axis options and limits
+
+This corresponds to the plotting examples documented in the report chapter 5.
 
 ---
 
-## 5.3 Simulation of Heat Conduction
+## Simulation of heat conduction
 
-Flowsim can also simulate **heat conduction** in place of groundwater flow. (Details omitted.)
-
+Flowsim can also simulate **heat conduction** in place of groundwater flow, using an analogous
+input structure. See the package documentation for details.

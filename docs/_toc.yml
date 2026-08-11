@@ -6,10 +6,8 @@ chapters:
   - file: methodology
   - file: examples
   - file: inputs
-  - file: outputs
   - file: notebooks-collection
     sections:
       - file: notebooks/quickstart
       - file: notebooks/applied-examples
-  - file: utilities
   - file: references
