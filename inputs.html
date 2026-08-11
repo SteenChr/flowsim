@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Inputs &#8212; Flowsim</title>
+    <title>Input instructions and output &#8212; Flowsim</title>
   
   
   
@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
   
@@ -65,7 +65,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Notebooks" href="notebooks-collection.html" />
-    <link rel="prev" title="Example input files" href="examples.html" />
+    <link rel="prev" title="Examples using Flowsim" href="examples.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -215,20 +215,22 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="home.html">
-                    Home
+                    Documentation of Flowsim, version 1
                 </a>
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation and Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installing and running Flowsim</a></li>
 <li class="toctree-l1"><a class="reference internal" href="methodology.html">Solution methodology</a></li>
-
-<li class="toctree-l1"><a class="reference internal" href="examples.html">Example input files</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Inputs</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="notebooks-collection.html">Notebooks</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="simple">
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples using Flowsim</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Input instructions and output</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="notebooks-collection.html">Notebooks</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/quickstart.html">Flowsim quickstart — a runnable reference implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/applied-examples.html">Applied examples — runnable versions</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
 </ul>
 
     </div>
@@ -411,7 +413,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Inputs</h1>
+    <h1>Input instructions and output</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -437,6 +439,11 @@
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boundary-condition-time-series-requirements">Boundary condition time series requirements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#output">Output</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#standard-output-and-log-files">Standard output and log files</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-output">Plotting output</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-of-heat-conduction">Simulation of heat conduction</a></li>
 </ul>
             </nav>
@@ -449,12 +456,12 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="inputs">
-<h1>Inputs<a class="headerlink" href="#inputs" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="input-instructions-and-output">
+<h1>Input instructions and output<a class="headerlink" href="#input-instructions-and-output" title="Link to this heading">#</a></h1>
 <section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
 <p>To use Flowsim, all input must be in consistent units. Correspondingly, all output from Flowsim
-(see <a class="reference internal" href="#outputs.md"><span class="xref myst">Outputs</span></a>) is presented in these same consistent units. The simulation is
+is presented in these same consistent units. The simulation is
 carried out at discrete time steps of constant duration, defined by the time step of the
 boundary-condition input.</p>
 <p>All input must be provided in a required text file named <code class="docutils literal notranslate"><span class="pre">flowsim.yaml</span></code>. This file follows the
@@ -604,6 +611,33 @@ parameters</p></li>
 input files accordingly.</p>
 </section>
 <hr class="docutils" />
+<section id="output">
+<h2>Output<a class="headerlink" href="#output" title="Link to this heading">#</a></h2>
+<section id="standard-output-and-log-files">
+<h3>Standard output and log files<a class="headerlink" href="#standard-output-and-log-files" title="Link to this heading">#</a></h3>
+<p>By default, Flowsim writes a CSV results file and a log file:</p>
+<ul class="simple">
+<li><p>flowsim-res.csv</p></li>
+<li><p>flowsim.log</p></li>
+</ul>
+<p>The results file contains date/time, used boundary condition series, and simulated
+head or flux at the requested x locations.</p>
+<p>For flux simulations, the file also contains total flux across aquifers at each
+x location.</p>
+</section>
+<section id="plotting-output">
+<h3>Plotting output<a class="headerlink" href="#plotting-output" title="Link to this heading">#</a></h3>
+<p>Optional plotting instructions can be included in flowsim.yaml using a plot block.
+Each plot sub-block can define:</p>
+<ul class="simple">
+<li><p>simulated series to draw</p></li>
+<li><p>optional observed series file and formatting</p></li>
+<li><p>axis options and limits</p></li>
+</ul>
+<p>This corresponds to the plotting examples documented in the report chapter 5.</p>
+</section>
+</section>
+<hr class="docutils" />
 <section id="simulation-of-heat-conduction">
 <h2>Simulation of heat conduction<a class="headerlink" href="#simulation-of-heat-conduction" title="Link to this heading">#</a></h2>
 <p>Flowsim can also simulate <strong>heat conduction</strong> in place of groundwater flow, using an analogous
@@ -647,7 +681,7 @@ input structure. See the package documentation for details.</p>
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Example input files</p>
+        <p class="prev-next-title">Examples using Flowsim</p>
       </div>
     </a>
     <a class="right-next"
@@ -693,6 +727,11 @@ input structure. See the package documentation for details.</p>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boundary-condition-time-series-requirements">Boundary condition time series requirements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#output">Output</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#standard-output-and-log-files">Standard output and log files</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-output">Plotting output</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-of-heat-conduction">Simulation of heat conduction</a></li>
 </ul>
   </nav></div>

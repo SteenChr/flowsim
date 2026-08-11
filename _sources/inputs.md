@@ -1,9 +1,9 @@
-# Inputs
+# Input instructions and output
 
 ## Overview
 
 To use Flowsim, all input must be in consistent units. Correspondingly, all output from Flowsim
-(see [Outputs](outputs.md)) is presented in these same consistent units. The simulation is
+is presented in these same consistent units. The simulation is
 carried out at discrete time steps of constant duration, defined by the time step of the
 boundary-condition input.
 
@@ -152,6 +152,34 @@ If any check fails, Flowsim aborts with an error message (also written to `flows
 
 To coarsen or refine a Flowsim simulation temporally, coarsen or refine the boundary-condition
 input files accordingly.
+
+---
+
+## Output
+
+### Standard output and log files
+
+By default, Flowsim writes a CSV results file and a log file:
+
+- flowsim-res.csv
+- flowsim.log
+
+The results file contains date/time, used boundary condition series, and simulated
+head or flux at the requested x locations.
+
+For flux simulations, the file also contains total flux across aquifers at each
+x location.
+
+### Plotting output
+
+Optional plotting instructions can be included in flowsim.yaml using a plot block.
+Each plot sub-block can define:
+
+- simulated series to draw
+- optional observed series file and formatting
+- axis options and limits
+
+This corresponds to the plotting examples documented in the report chapter 5.
 
 ---
 

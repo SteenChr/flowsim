@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Example input files &#8212; Flowsim</title>
+    <title>Examples using Flowsim &#8212; Flowsim</title>
   
   
   
@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
   
@@ -64,7 +64,7 @@
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Inputs" href="inputs.html" />
+    <link rel="next" title="Input instructions and output" href="inputs.html" />
     <link rel="prev" title="Solution methodology" href="methodology.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -215,20 +215,22 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="home.html">
-                    Home
+                    Documentation of Flowsim, version 1
                 </a>
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation and Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installing and running Flowsim</a></li>
 <li class="toctree-l1"><a class="reference internal" href="methodology.html">Solution methodology</a></li>
-
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Example input files</a></li>
-<li class="toctree-l1"><a class="reference internal" href="inputs.html">Inputs</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="notebooks-collection.html">Notebooks</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="simple">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Examples using Flowsim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inputs.html">Input instructions and output</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="notebooks-collection.html">Notebooks</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/quickstart.html">Flowsim quickstart — a runnable reference implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/applied-examples.html">Applied examples — runnable versions</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
 </ul>
 
     </div>
@@ -411,7 +413,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Example input files</h1>
+    <h1>Examples using Flowsim</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -421,9 +423,10 @@
             </div>
             <nav aria-label="Page">
                 <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sillerup">Sillerup</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#knivsbaek">Knivsbaek</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#abild-aa">Abild aa</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sillerup">4.1 Sillerup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#knivsbaek">4.2 Knivsbaek</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#abild-aa">4.3 Abild aa</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-files">Example files</a></li>
 </ul>
             </nav>
         </div>
@@ -435,28 +438,55 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="example-input-files">
-<h1>Example input files<a class="headerlink" href="#example-input-files" title="Link to this heading">#</a></h1>
-<p>The Flowsim GitHub repository has a folder named Examples, which has a number of subfolders. Each subfolder contains the input files required by Flowsim to run a specific flow simulation example. A very short description of each example follows below.</p>
-<hr class="docutils" />
+  <section class="tex2jax_ignore mathjax_ignore" id="examples-using-flowsim">
+<h1>Examples using Flowsim<a class="headerlink" href="#examples-using-flowsim" title="Link to this heading">#</a></h1>
+<p>This chapter mirrors the three field examples in the report.</p>
 <section id="sillerup">
-<h2>Sillerup<a class="headerlink" href="#sillerup" title="Link to this heading">#</a></h2>
-<p>This is an example where Flowsim is used to simulate discharge to a stream from a catchment with glacial clayey deposits covering sandy deposits forming a deep aquifer. The land use is mainly agricultural, and due to the shallow clayey deposits the fields contain a dense network of drain systems. The streamflow, which is driven by time-variable recharge, is therefore conceptualized to conisist of both fast-responding drain discharge and slow-reponding deep groundwater discharge (the latter forming the stream’s base flow). Both types of discharge are modelled by use of the Flowsim response function named “fin_rech_leak”.</p>
-<p>The Sillerup example is used in the report’s Section 4.1 to demonstrate that it can be very useful to use a simple tool like Flowsim prior to complex numerical modeling to support early decisions about numerical model design and parameter estimation strategy, including decision about objective function. It can also be very useful to use Flowsim to make early decision about how to model generation of groundwater recharge from climatic data. The advantage of using Flowsim is that it takes no time to set up alternative simple models, and it takes no time (just seconds) to run such a model. Therefore a study like this for Sillerup can be made by an experienced modeler in a few hours, providing a lot of useful information and support for decisions that can be used in a following advanced study based on numerical modeling.</p>
-<p>The Sillerup example files can be found <a class="reference external" href="https://github.com/SteenChr/flowsim/tree/main/Examples/Sillerup">here</a>.</p>
+<h2>4.1 Sillerup<a class="headerlink" href="#sillerup" title="Link to this heading">#</a></h2>
+<p>The Sillerup case demonstrates streamflow simulation in a catchment where
+time-variable recharge drives both:</p>
+<ul class="simple">
+<li><p>a fast drainage component</p></li>
+<li><p>a slower groundwater component</p></li>
+</ul>
+<p>Both components are represented with fin_rech_leak and then superimposed.
+The case study is used to discuss model conceptualization, sensitivity analysis,
+parameter estimation strategy, and validation of recharge generated by
+alternative root-zone models.</p>
+<p>In the report workflow, Flowsim is used as a fast screening model before
+building more complex numerical models.</p>
 </section>
-<hr class="docutils" />
 <section id="knivsbaek">
-<h2>Knivsbaek<a class="headerlink" href="#knivsbaek" title="Link to this heading">#</a></h2>
-<p>The Knivsbaek example is quite similar to the Sillerup example, but for a different kind of hydrogeologic setting. It is used in the report’s Section 4.2 to demonstrate that Flowsim can be used to do a quick analysis of a streamflow time series, which separates streamflow into a slow baseflow component and a flashy component. Together with geologic information from boreholes, the analysis supports a conceptual understanding (a hypothesis) that baseflow originates from groundwater recharge in areas without shallow clay, while the flashy part of stream flow mainly originates from groundwater recharge in areas with shallow clay.</p>
-<p>The Knivsbaek example files can be found <a class="reference external" href="https://github.com/SteenChr/flowsim/tree/main/Examples/Knivsbaek">here</a>.</p>
+<h2>4.2 Knivsbaek<a class="headerlink" href="#knivsbaek" title="Link to this heading">#</a></h2>
+<p>The Knivsbaek case applies a similar two-component concept (flashy drainage and
+slower groundwater baseflow), but in a different hydrogeologic setting.</p>
+<p>The analysis combines streamflow data with geological context to support a
+conceptual interpretation of which landscape units contribute to each flow
+component. Parameter estimates from this setup can be used as initial guidance
+for later detailed modeling.</p>
 </section>
-<hr class="docutils" />
 <section id="abild-aa">
-<h2>Abild aa<a class="headerlink" href="#abild-aa" title="Link to this heading">#</a></h2>
-<p>This is an example where Flowsim is used to simulate hydraulic head variation in piezometers along a transect of an unconfined aquifer. The transect is perpendicular to a stream. The head variation is driven by both time-variable groundwater recharge and time-variable stream stage. Using Flowsim, in this example the head response due to variation in recharge is simulated by the “fin_rech_leak” response function, while the head response due to stream stage variation is simulated by the “sinf_head_leak” response function.</p>
-<p>The example is used in the report’s Section 4.3 to demonstrate that when the boundary conditions can be specified, various hydrogeologic parameter values can be estimated from head time series observed at various locations. Transmissivity could mainly be estimated from mean hydraulic head observations, and particularly at distance from the stream; storativity could mainly be estimated from the temporal fluctuations of hydraulic head, and particularly at distance from the stream; and streambed conductance could also mainly be estimated from mean hydraulic head observations, and in particular from observations close to the stream.</p>
-<p>The Abild aa example files can be found <a class="reference external" href="https://github.com/SteenChr/flowsim/tree/main/Examples/Abild_aa">here</a>.</p>
+<h2>4.3 Abild aa<a class="headerlink" href="#abild-aa" title="Link to this heading">#</a></h2>
+<p>The Abild aa case focuses on hydraulic head time series in piezometers along a
+transect perpendicular to a stream. The simulated response is driven by both
+transient recharge and transient stream stage.</p>
+<p>The conceptual model superimposes:</p>
+<ul class="simple">
+<li><p>fin_rech_leak (recharge-driven response in a finite domain)</p></li>
+<li><p>sinf_head_leak (stream-stage-driven response in a semi-infinite domain)</p></li>
+</ul>
+<p>The case demonstrates how transmissivity, storativity, and streambed
+conductance can be constrained from observed head time series when boundary
+conditions are sufficiently known.</p>
+</section>
+<section id="example-files">
+<h2>Example files<a class="headerlink" href="#example-files" title="Link to this heading">#</a></h2>
+<p>The repository example input data and yaml setups are available at:</p>
+<ul class="simple">
+<li><p><a class="github reference external" href="https://github.com/SteenChr/flowsim/tree/main/Examples/Sillerup">SteenChr/flowsim</a></p></li>
+<li><p><a class="github reference external" href="https://github.com/SteenChr/flowsim/tree/main/Examples/Knivsbaek">SteenChr/flowsim</a></p></li>
+<li><p><a class="github reference external" href="https://github.com/SteenChr/flowsim/tree/main/Examples/Abild_aa">SteenChr/flowsim</a></p></li>
+</ul>
 </section>
 </section>
 
@@ -504,7 +534,7 @@
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Inputs</p>
+        <p class="prev-next-title">Input instructions and output</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -526,9 +556,10 @@
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sillerup">Sillerup</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#knivsbaek">Knivsbaek</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#abild-aa">Abild aa</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sillerup">4.1 Sillerup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#knivsbaek">4.2 Knivsbaek</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#abild-aa">4.3 Abild aa</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-files">Example files</a></li>
 </ul>
   </nav></div>
 
